@@ -1,69 +1,128 @@
-# personal assistant robot prototype
-## Overview
+# Personal Assistant Robot Project
 
-This project involves building a personal assistant robot using a Raspberry Pi. The robot is designed to perform tasks such as answering questions, controlling smart devices, managing schedules, and providing reminders, all through voice commands. By integrating various sensors, motors, and software, this robot can interact with users in a meaningful and helpful way.
+This repository contains the full implementation of a voice-controlled personal assistant robot developed as a bachelor thesis project at Stamford University Bangladesh. The robot features voice interaction, autonomous navigation, and various assistant functionalities.
 
-## Features
+## 📋 Project Overview
+A personal assistant robot prototype designed to:
+- Respond to voice commands
+- Provide weather, time, and Wikipedia information
+- Navigate indoor environments autonomously
+- Assist with daily tasks through voice interaction
 
-- **Voice Recognition**: The robot listens to and processes voice commands using a microphone and speech recognition software.
-- **Natural Language Processing (NLP)**: It understands and responds to user queries, powered by NLP libraries.
-- **Speech Synthesis**: The robot speaks back to the user using a speaker and text-to-speech software.
-- **Task Management**: It can manage tasks such as setting reminders, alarms, and calendar events.
-- **Home Automation**: Integration with smart home devices allows the robot to control lights, thermostats, and other connected devices.
-- **Interactive Movement**: Equipped with motors and sensors, the robot can navigate and interact with its environment.
-- **Customizable Personality**: You can program the robot’s responses and behaviors to match your preferences.
+[![Project Demo](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID/0.jpg)](https://youtube.com/demo-link)
 
-## Components
+## ✨ Key Features
+- **Voice Interaction**:
+  - Speech recognition via Wit.ai
+  - Text-to-speech using eSpeak
+  - Voice command processing
+- **Assistant Functions**:
+  - Weather information retrieval
+  - Time and schedule management
+  - Wikipedia knowledge queries
+  - iPhone locating functionality
+- **Robotics**:
+  - 360-degree manipulator
+  - Fuzzy behavior-based navigation
+  - Face recognition and tracking
+- **Hardware Integration**:
+  - Raspberry Pi 3 as main controller
+  - Arduino Mega for motor control
+  - Custom chassis with 4-wheel drive
 
-- **Raspberry Pi 4**: The brain of the robot, running the operating system and software.
-- **Microphone**: For capturing voice commands.
-- **Speaker**: For outputting audio responses.
-- **Camera Module** (optional): For vision-based tasks like face recognition.
-- **Motor Driver**: To control the motors for movement.
-- **DC Motors**: For driving the wheels and enabling the robot to move.
-- **Ultrasonic Sensors**: For obstacle detection and navigation.
-- **Battery Pack**: To power the Raspberry Pi and motors.
+## 🛠️ Hardware Requirements
+| Component | Specification |
+|-----------|---------------|
+| Main Controller | Raspberry Pi 3 Model B |
+| Motor Controller | Arduino Mega 2560 |
+| Motors | 4x DC Gear Motors (6V) |
+| Servos | MG996R (10kg torque) |
+| Power | 2x LiPo Batteries (7.4V) |
+| Sensors | USB Webcam, Microphone |
+| Chassis | Custom fiberglass platform |
+| Wheels | 65mm Rubber Wheels |
 
-## Software
+## 💻 Software Stack
+- **OS**: Raspberry Pi OS (Stretch)
+- **Speech Processing**: Wit.ai + eSpeak
+- **Core Programming**: Python 2.7
+- **Arduino Programming**: C++
+- **Libraries**:
+  - PyAudio
+  - OpenCV
+  - RPi.GPIO
+  - Arduino Motor Shield Library
 
-- **Raspbian OS**: The operating system for the Raspberry Pi.
-- **Python**: The primary programming language used for scripting and controlling the robot.
-- **SpeechRecognition**: Python library for capturing and processing voice commands.
-- **Pyttsx3**: A text-to-speech conversion library.
-- **Dialogflow** or **Rasa**: For implementing natural language processing and understanding.
-- **OpenCV** (optional): For image and video processing if using a camera module.
-- **MQTT**: For communication with smart home devices.
+## 🚀 Installation Guide
 
-## Setup Instructions
+### 1. Clone Repository
+```bash
+git clone https://github.com/haqueabdali/personal-assistant-robot.git
+cd personal-assistant-robot
+```
 
-1. **Install Raspbian OS** on the Raspberry Pi and set up the initial configuration.
-2. **Connect the Microphone and Speaker** to the Raspberry Pi via USB or 3.5mm jack.
-3. **Install Python and Required Libraries**:
-   ```bash
-   sudo apt-get update
-   sudo apt-get install python3 python3-pip
-   pip3 install SpeechRecognition pyttsx3 paho-mqtt
-   ```
-4. **Configure and Test Voice Recognition** using the SpeechRecognition library.
-5. **Set Up Text-to-Speech** with Pyttsx3 for voice output.
-6. **Integrate NLP** with Dialogflow or Rasa for understanding and responding to queries.
-7. **Build the Robot’s Body** and connect the motors, motor driver, and sensors to the Raspberry Pi.
-8. **Write Scripts for Movement** and interaction, using sensor data to navigate and respond to the environment.
-9. **Integrate Smart Home Control** using MQTT or similar protocols to connect with devices.
-10. **Test and Debug** all functionalities to ensure smooth operation.
-11. **Customize Responses and Behaviors** to match your desired robot personality.
+### 2. Hardware Setup
+Follow the [Hardware Assembly Guide](https://github.com/haqueabdali/personal-assistant-robot/blob/master/docs/ASSEMBLY.md) for detailed connection instructions.
 
-## Usage
+### 3. Software Installation
+```bash
+# Install dependencies
+sudo apt-get update
+sudo apt-get install espeak python-pyaudio python-opencv
 
-Once everything is set up, power on the robot and interact with it using voice commands. You can ask it questions, control smart home devices, and have it manage your daily tasks. The robot will respond with voice output and perform the requested actions.
+# Configure API keys
+cp config.example.yaml config.yaml
+nano config.yaml  # Add your Wit.ai and other API keys
+```
 
-## Future Enhancements
+### 4. Flash Arduino
+```bash
+cd arduino
+platformio run --target upload
+```
 
-- **Facial Recognition**: Add a camera and use OpenCV for recognizing and responding to different users.
-- **Advanced Navigation**: Implement SLAM (Simultaneous Localization and Mapping) for better navigation and obstacle avoidance.
-- **Emotion Detection**: Use sentiment analysis to gauge the user’s mood and adjust responses accordingly.
-- **IoT Integration**: Expand the robot’s capabilities by connecting it to more IoT devices.
+## 🎮 Usage
+```bash
+# Start the main application
+python main.py
 
-## Conclusion
+# Basic voice commands:
+"JOHN, what's the weather?"
+"JOHN, what time is it?"
+"JOHN, find my iPhone"
+"JOHN, move forward"
+```
 
-This personal assistant robot project is a great way to dive into the world of robotics, AI, and home automation using Raspberry Pi. With endless possibilities for customization and improvement, this project can be as simple or complex as you want it to be.   
+## 📂 Project Structure
+```
+├── arduino/           # Motor control code
+├── docs/              # Project documentation
+├── images/            # System diagrams and photos
+├── src/               # Python source code
+│   ├── brain.py       # Command processing
+│   ├── mic.py         # Audio handling
+│   ├── stt.py         # Speech-to-text
+│   └── tts.py         # Text-to-speech
+├── config.yaml        # Configuration file
+└── requirements.txt   # Python dependencies
+```
+
+## 🤝 Contributing
+Contributions are welcome! Please follow these steps:
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some feature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a pull request
+
+## 📜 License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+- Supervisor: Asma-ull-Hosna (Stamford University Bangladesh)
+- Hardware Reference: Raspberry Pi Foundation
+- Speech API: Wit.ai
+- [Full Project Documentation](https://github.com/haqueabdali/personal-assistant-robot/blob/master/docs/FINAL_REPORT.pdf)
+
+---
+**Note**: This is a legacy academic project. Some components may require updating for modern systems. For support, create an issue in the repository.  
