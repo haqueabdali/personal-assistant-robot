@@ -1,0 +1,22 @@
+# Basic settings
+first_name: "User"
+location:
+  city: "Dhaka"
+  timezone: "Asia/Dhaka"
+
+# Speech recognition
+stt_engine: "witai"
+witai:
+  access_token: "YOUR_WITAI_ACCESS_TOKEN"
+
+# Text-to-speech
+tts_engine: "espeak"
+
+# APIs
+weather:
+  api_key: "YOUR_OPENWEATHERMAP_API_KEY"
+
+# Hardware settings
+arduino:
+  port: "/dev/ttyACM0"
+  baud_rate: 9600
