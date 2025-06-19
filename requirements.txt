@@ -1,0 +1,8 @@
+pyaudio
+SpeechRecognition
+python-dotenv
+pyyaml
+gTTS
+requests
+espeak
+mpg123
